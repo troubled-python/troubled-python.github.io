@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -80,7 +81,16 @@
     padding: 0 5vw 6rem;
     position: relative;
     overflow: hidden;
-    background: var(--ink);
+    background-image: url('https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=2000&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(13,17,23,0.95) 5%, rgba(13,17,23,0.2) 100%);
+    z-index: 1;
   }
 
   .hero-grid {
@@ -89,18 +99,23 @@
       linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
       linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
     background-size: 60px 60px;
+    z-index: 2;
   }
 
   .hero-accent-bar {
     position: absolute; top: 0; left: 5vw; width: 3px; height: 100%;
     background: var(--accent); opacity: 0.7;
+    z-index: 2;
+  }
+
+  .hero-content {
+    position: relative; z-index: 3;
   }
 
   .hero-tag {
     font-size: 0.75rem; font-weight: 500; letter-spacing: 0.18em;
     text-transform: uppercase; color: var(--accent);
     margin-bottom: 1.5rem;
-    opacity: 0; animation: fadeUp 0.8s 0.2s forwards;
   }
 
   .hero h1 {
@@ -109,7 +124,6 @@
     line-height: 0.92;
     color: var(--cream);
     letter-spacing: 0.01em;
-    opacity: 0; animation: fadeUp 0.9s 0.35s forwards;
   }
 
   .hero h1 em {
@@ -123,13 +137,11 @@
     margin-top: 2.5rem;
     font-size: 1.05rem; font-weight: 300; line-height: 1.75;
     color: rgba(245,241,234,0.65);
-    opacity: 0; animation: fadeUp 0.9s 0.5s forwards;
   }
 
   .hero-actions {
     display: flex; gap: 1rem; align-items: center;
     margin-top: 3rem;
-    opacity: 0; animation: fadeUp 0.9s 0.65s forwards;
   }
 
   .btn-primary {
@@ -158,7 +170,7 @@
   .hero-scroll {
     position: absolute; right: 5vw; bottom: 4rem;
     display: flex; flex-direction: column; align-items: center; gap: 0.75rem;
-    opacity: 0; animation: fadeUp 1s 0.9s forwards;
+    z-index: 3;
   }
 
   .hero-scroll span {
@@ -424,7 +436,7 @@
 
   .project-card {
     background: var(--cream);
-    padding: 2.5rem;
+    display: flex; flex-direction: column;
     position: relative; overflow: hidden;
     transition: background 0.25s;
   }
@@ -434,6 +446,26 @@
   }
 
   .project-card:hover { background: var(--white); }
+
+  .project-img-wrapper {
+    height: 300px;
+    overflow: hidden;
+  }
+
+  .project-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+
+  .project-card:hover .project-img-wrapper img {
+    transform: scale(1.05);
+  }
+
+  .project-content {
+    padding: 2.5rem;
+  }
 
   .project-tag {
     display: inline-block;
@@ -653,13 +685,6 @@
     50% { opacity: 1; transform: scaleY(1.15); }
   }
 
-  .reveal {
-    opacity: 0; transform: translateY(30px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-
-  .reveal.visible { opacity: 1; transform: translateY(0); }
-
   @media (max-width: 900px) {
     .about, .contact { grid-template-columns: 1fr; gap: 4rem; }
     .projects-grid { grid-template-columns: 1fr; }
@@ -689,15 +714,17 @@
   <div class="hero-grid"></div>
   <div class="hero-accent-bar"></div>
 
-  <p class="hero-tag">Custom Home Design & Drafting</p>
-  <h1>We design<br>homes you<br><em>love.</em></h1>
-  <p class="hero-sub">Arcivus is a growing startup dedicated to bringing your home renovation and building ideas to life with precise AutoCAD layouts and personalized 3D designs.</p>
-  <div class="hero-actions">
-    <a href="#services" class="btn-primary">Explore Services</a>
-    <a href="#projects" class="btn-ghost">View Our Work →</a>
+  <div class="hero-content">
+    <p class="hero-tag" data-aos="fade-up" data-aos-delay="200">Custom Home Design & Drafting</p>
+    <h1 data-aos="fade-up" data-aos-delay="400">We design<br>homes you<br><em>love.</em></h1>
+    <p class="hero-sub" data-aos="fade-up" data-aos-delay="600">Arcivus is a growing startup dedicated to bringing your home renovation and building ideas to life with precise AutoCAD layouts and personalized 3D designs.</p>
+    <div class="hero-actions" data-aos="fade-up" data-aos-delay="800">
+      <a href="#services" class="btn-primary">Explore Services</a>
+      <a href="#projects" class="btn-ghost">View Our Work →</a>
+    </div>
   </div>
 
-  <div class="hero-scroll">
+  <div class="hero-scroll" data-aos="fade-in" data-aos-delay="1200">
     <div class="scroll-line"></div>
     <span>Scroll</span>
   </div>
@@ -721,13 +748,13 @@
 </div>
 
 <section class="about" id="about">
-  <div class="reveal">
+  <div data-aos="fade-right">
     <p class="about-label">Who We Are</p>
     <h2>Fresh ideas for your <em>space</em></h2>
     <p>As a new and passionate design startup, we believe every home deserves a personalized touch. Whether you are planning a complete renovation or just need precise AutoCAD drawings for a new extension, we work closely with you to turn your vision into reality.</p>
     <p>We skip the massive corporate overhead and focus directly on what matters: delivering high-quality, practical layouts and beautiful designs tailored exactly to your family's needs and budget.</p>
   </div>
-  <div class="about-stats reveal">
+  <div class="about-stats" data-aos="fade-left">
     <div class="stat-box">
       <div class="stat-num">100<span>%</span></div>
       <div class="stat-label">Personal Focus</div>
@@ -748,7 +775,7 @@
 </section>
 
 <section class="services" id="services">
-  <div class="section-header reveal">
+  <div class="section-header" data-aos="fade-up">
     <div>
       <p class="section-label">What We Do</p>
       <h2 class="section-title">Our <em>Services</em></h2>
@@ -756,7 +783,7 @@
   </div>
 
   <div class="services-grid">
-    <div class="service-card reveal">
+    <div class="service-card" data-aos="fade-up" data-aos-delay="100">
       <div class="service-num">01</div>
       <div class="service-icon">
         <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
@@ -765,7 +792,7 @@
       <p>Precise 2D floor plans, elevations, and structural layouts prepared specifically for your home building or renovation needs.</p>
       <a href="#contact" class="service-link">Get a Quote →</a>
     </div>
-    <div class="service-card reveal">
+    <div class="service-card" data-aos="fade-up" data-aos-delay="200">
       <div class="service-num">02</div>
       <div class="service-icon">
         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
@@ -774,7 +801,7 @@
       <p>Visualize your new space before construction begins with our detailed 3D models and realistic material renderings.</p>
       <a href="#contact" class="service-link">Get a Quote →</a>
     </div>
-    <div class="service-card reveal">
+    <div class="service-card" data-aos="fade-up" data-aos-delay="300">
       <div class="service-num">03</div>
       <div class="service-icon">
         <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
@@ -783,7 +810,7 @@
       <p>Step-by-step guidance and clever layout adjustments to modernize, expand, and maximize the potential of your current home.</p>
       <a href="#contact" class="service-link">Get a Quote →</a>
     </div>
-    <div class="service-card reveal">
+    <div class="service-card" data-aos="fade-up" data-aos-delay="400">
       <div class="service-num">04</div>
       <div class="service-icon">
         <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
@@ -792,7 +819,7 @@
       <p>Adding a room or a new floor? We design structural plans that blend perfectly with your existing house architecture.</p>
       <a href="#contact" class="service-link">Get a Quote →</a>
     </div>
-    <div class="service-card reveal">
+    <div class="service-card" data-aos="fade-up" data-aos-delay="500">
       <div class="service-num">05</div>
       <div class="service-icon">
         <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
@@ -801,7 +828,7 @@
       <p>Optimizing your indoor spaces for better flow, natural lighting, and intelligent furniture placement.</p>
       <a href="#contact" class="service-link">Get a Quote →</a>
     </div>
-    <div class="service-card reveal">
+    <div class="service-card" data-aos="fade-up" data-aos-delay="600">
       <div class="service-num">06</div>
       <div class="service-icon">
         <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
@@ -814,7 +841,7 @@
 </section>
 
 <section class="process" id="process">
-  <div class="section-header reveal">
+  <div class="section-header" data-aos="fade-up">
     <div>
       <p class="section-label">How We Work</p>
       <h2 class="section-title" style="color: var(--ink);">Our <em style="color: var(--accent);">Process</em></h2>
@@ -822,27 +849,27 @@
   </div>
 
   <div class="process-steps">
-    <div class="step reveal">
+    <div class="step" data-aos="fade-up" data-aos-delay="100">
       <div class="step-dot"><span>01</span></div>
       <h4>Discovery</h4>
       <p>We chat about your ideas, measure your space, and understand exactly what you want your home to feel like.</p>
     </div>
-    <div class="step reveal">
+    <div class="step" data-aos="fade-up" data-aos-delay="200">
       <div class="step-dot"><span>02</span></div>
       <h4>Drafting</h4>
       <p>We hit the drawing board, creating the initial AutoCAD floor plans and layouts based on your requirements.</p>
     </div>
-    <div class="step reveal">
+    <div class="step" data-aos="fade-up" data-aos-delay="300">
       <div class="step-dot"><span>03</span></div>
       <h4>Review</h4>
       <p>We sit together, look at the drafts, and make adjustments until the space works perfectly for you.</p>
     </div>
-    <div class="step reveal">
+    <div class="step" data-aos="fade-up" data-aos-delay="400">
       <div class="step-dot"><span>04</span></div>
       <h4>Finalizing</h4>
       <p>We deliver the final, ready-to-build blueprints, complete with measurements and 3D mockups if needed.</p>
     </div>
-    <div class="step reveal">
+    <div class="step" data-aos="fade-up" data-aos-delay="500">
       <div class="step-dot"><span>05</span></div>
       <h4>Support</h4>
       <p>We remain available to answer questions from your contractor as the physical work finally begins.</p>
@@ -851,52 +878,69 @@
 </section>
 
 <section class="projects" id="projects">
-  <div class="section-header reveal">
+  <div class="section-header" data-aos="fade-up">
     <div>
       <p class="section-label">Our Work</p>
       <h2 class="section-title" style="color: var(--ink);">Featured <em style="color: var(--accent);">Projects</em></h2>
     </div>
   </div>
 
-  <div class="projects-grid reveal">
-    <div class="project-card">
-      <span class="project-tag">Home Layout</span>
-      <h3>Modern Villa Construction</h3>
-      <p>Complete 2D AutoCAD floor plan and 3D exterior rendering for a newly constructed, custom-built family home designed to maximize natural light.</p>
-      <div class="project-meta">
-        <div><span>Service</span><strong>Full Design</strong></div>
-        <div><span>Scale</span><strong>3,200 sq ft</strong></div>
-        <div><span>Status</span><strong>Completed</strong></div>
+  <div class="projects-grid">
+    <div class="project-card" data-aos="fade-up" data-aos-delay="100">
+      <div class="project-img-wrapper">
+        <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=800&auto=format&fit=crop" loading="lazy" alt="Modern Villa Construction">
+      </div>
+      <div class="project-content">
+        <span class="project-tag">Home Layout</span>
+        <h3>Modern Villa Construction</h3>
+        <p>Complete 2D AutoCAD floor plan and 3D exterior rendering for a newly constructed, custom-built family home designed to maximize natural light.</p>
+        <div class="project-meta">
+          <div><span>Service</span><strong>Full Design</strong></div>
+          <div><span>Scale</span><strong>3,200 sq ft</strong></div>
+          <div><span>Status</span><strong>Completed</strong></div>
+        </div>
       </div>
     </div>
-    <div class="project-card">
-      <span class="project-tag">Renovation</span>
-      <h3>Open-Concept Apartment</h3>
-      <p>Redesigning an outdated layout by safely removing non-load-bearing walls to create a massive open-concept kitchen and living area.</p>
-      <div class="project-meta">
-        <div><span>Service</span><strong>Drafting</strong></div>
-        <div><span>Status</span><strong>In Progress</strong></div>
+    
+    <div class="project-card" data-aos="fade-up" data-aos-delay="200">
+      <div class="project-img-wrapper">
+        <img src="https://images.unsplash.com/photo-1560184897-ae75f418493e?q=80&w=800&auto=format&fit=crop" loading="lazy" alt="Open-Concept Apartment">
+      </div>
+      <div class="project-content">
+        <span class="project-tag">Renovation</span>
+        <h3>Open-Concept Apartment</h3>
+        <p>Redesigning an outdated layout by safely removing non-load-bearing walls to create a massive open-concept kitchen and living area.</p>
+        <div class="project-meta">
+          <div><span>Service</span><strong>Drafting</strong></div>
+          <div><span>Status</span><strong>In Progress</strong></div>
+        </div>
       </div>
     </div>
-    <div class="project-card">
-      <span class="project-tag">Extension</span>
-      <h3>Backyard Sunroom</h3>
-      <p>AutoCAD drafting and structural layout for a new four-season sunroom and wooden deck addition to an existing residential property.</p>
-      <div class="project-meta">
-        <div><span>Service</span><strong>AutoCAD</strong></div>
-        <div><span>Status</span><strong>Completed</strong></div>
+    
+    <div class="project-card" data-aos="fade-up" data-aos-delay="300">
+      <div class="project-img-wrapper">
+        <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=800&auto=format&fit=crop" loading="lazy" alt="Backyard Sunroom">
+      </div>
+      <div class="project-content">
+        <span class="project-tag">Extension</span>
+        <h3>Backyard Sunroom</h3>
+        <p>AutoCAD drafting and structural layout for a new four-season sunroom and wooden deck addition to an existing residential property.</p>
+        <div class="project-meta">
+          <div><span>Service</span><strong>AutoCAD</strong></div>
+          <div><span>Status</span><strong>Completed</strong></div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="cta-section">
+<section class="cta-section" data-aos="fade-up">
   <h2>Ready to start your <em>renovation?</em></h2>
   <a href="#contact" class="btn-white">Let's Discuss Your Ideas</a>
 </section>
 
 <section class="contact" id="contact">
-  <div class="contact-info reveal">
+  <div class="contact-info" data-aos="fade-right">
     <p class="section-label">Contact</p>
     <h2 class="section-title">Let's <em>Talk</em></h2>
     <p>Have a project in mind? We'd love to hear about it. Reach out to see how our customized design solutions can help.</p>
@@ -926,45 +970,45 @@
         </div>
         <div class="contact-item-text">
           <span>Phone</span>
-          <strong>+91 98765 43210</strong>
+          <strong>+91 7265090945</strong>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="contact-form reveal">
+  <form class="contact-form" action="https://formspree.io/f/mwvwepwb" method="POST" data-aos="fade-left">
     <div class="form-row">
       <div class="form-group">
         <label>First Name</label>
-        <input type="text" placeholder="Rahul">
+        <input type="text" name="firstName" placeholder="Rahul" required>
       </div>
       <div class="form-group">
         <label>Last Name</label>
-        <input type="text" placeholder="Mehta">
+        <input type="text" name="lastName" placeholder="Mehta" required>
       </div>
     </div>
     <div class="form-group">
       <label>Email</label>
-      <input type="email" placeholder="rahul@example.com">
+      <input type="email" name="email" placeholder="rahul@example.com" required>
     </div>
     <div class="form-group">
       <label>Service Needed</label>
-      <select>
+      <select name="service" required>
         <option value="" disabled selected>Select a service</option>
-        <option>AutoCAD Drafting</option>
-        <option>3D Modeling</option>
-        <option>Renovation Planning</option>
-        <option>Custom Extensions</option>
-        <option>Interior Layouts</option>
-        <option>General Consultation</option>
+        <option value="AutoCAD Drafting">AutoCAD Drafting</option>
+        <option value="3D Modeling">3D Modeling</option>
+        <option value="Renovation Planning">Renovation Planning</option>
+        <option value="Custom Extensions">Custom Extensions</option>
+        <option value="Interior Layouts">Interior Layouts</option>
+        <option value="General Consultation">General Consultation</option>
       </select>
     </div>
     <div class="form-group">
       <label>Project Brief</label>
-      <textarea placeholder="Tell us about your home renovation or drafting needs..."></textarea>
+      <textarea name="message" placeholder="Tell us about your home renovation or drafting needs..." required></textarea>
     </div>
-    <button class="btn-submit">Send Message</button>
-  </div>
+    <button type="submit" class="btn-submit">Send Message</button>
+  </form>
 </section>
 
 <footer>
@@ -979,25 +1023,12 @@
   <p class="footer-copy">© 2026 Arcivus. All rights reserved.</p>
 </footer>
 
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        observer.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.12 });
-
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-  document.querySelector('.btn-submit').addEventListener('click', function() {
-    this.textContent = 'Message Sent ✓';
-    this.style.background = '#2a7a4b';
-    setTimeout(() => {
-      this.textContent = 'Send Message';
-      this.style.background = '';
-    }, 3000);
+  AOS.init({
+    duration: 800,
+    once: true,
+    offset: 100
   });
 </script>
 </body>
